@@ -1,90 +1,93 @@
 import React from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import '../App.css';
 
 const Contacto = () => {
   return (
-    <section className="contacto-section">
-      <div className="contacto-grid">
-        {/* LA REALIDAD FÍSICA (Izquierda) */}
-        <div className="contacto-info">
-          <h2 className="contacto-title">Hablemos de tu próximo proyecto.</h2>
-          <p className="contacto-subtitle">
-            Ya sea una remodelación de interiores o un proyecto a escala
-            industrial, nuestra ingeniería está lista para cotizar tu material.
-          </p>
+    <div className="contacto-pagina-maestra">
+      <section className="contacto-hero-tecnico">
+        <h1 className="titulo-seccion-productos">CONTACTO TÉCNICO Y VENTAS</h1>
+        <p className="descripcion-cabecera-tecnica">
+          Asesoría especializada para proyectos arquitectónicos, cubicación de
+          material y logística de envíos a nivel nacional.
+        </p>
+      </section>
 
-          <div className="info-item">
-            <div className="info-icon-box">
-              <MapPin size={28} />
-            </div>
-            <div className="info-text">
-              <h4>Ubicación</h4>
-              <p>Ciudad de México, CDMX</p>
-            </div>
+      <section className="contacto-grid-principal">
+        <div className="contacto-informacion-columna">
+          <h2 className="contacto-subtitulo-form">INFORMACIÓN OPERATIVA</h2>
+
+          <div className="contacto-dato-bloque">
+            <h3 className="contacto-etiqueta">DEPARTAMENTO DE VENTAS</h3>
+            <p className="contacto-valor">ventas@bricko.com</p>
           </div>
 
-          <div className="info-item">
-            <div className="info-icon-box">
-              <Phone size={28} />
-            </div>
-            <div className="info-text">
-              <h4>Teléfono Directo</h4>
-              <p>+52 55 5555 5555</p>
-            </div>
+          <div className="contacto-dato-bloque">
+            <h3 className="contacto-etiqueta">LÍNEA DIRECTA</h3>
+            <p className="contacto-valor">-55-55-55-55-55</p>
           </div>
 
-          <div className="info-item">
-            <div className="info-icon-box">
-              <Mail size={28} />
-            </div>
-            <div className="info-text">
-              <h4>Correo Comercial</h4>
-              <p>ventas@bricko.com</p>
-            </div>
+          <div className="contacto-dato-bloque">
+            <h3 className="contacto-etiqueta">COBERTURA</h3>
+            <p className="contacto-valor">
+              Envíos a toda la República Mexicana. Soporte logístico para
+              descargas en obra.
+            </p>
           </div>
         </div>
 
-        {/* EL EMBUDO DE DATOS (Derecha) */}
-        <div className="contacto-form-box">
-          <h3>SOLICITAR COTIZACIÓN</h3>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group">
+        <div className="contacto-formulario-columna">
+          <h2 className="contacto-subtitulo-form">SOLICITUD DE COTIZACIÓN</h2>
+          <form
+            className="contacto-formulario-tecnico"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <div className="form-grupo">
+              <label htmlFor="nombre" className="form-etiqueta">
+                Nombre o Empresa
+              </label>
               <input
                 type="text"
-                className="form-input"
-                placeholder="Nombre Completo o Empresa"
-                required
+                id="nombre"
+                className="form-entrada"
+                placeholder="Ej. Arquitectura Integral S.A."
               />
             </div>
-            <div className="form-group">
+
+            <div className="form-grupo">
+              <label htmlFor="email" className="form-etiqueta">
+                Correo Electrónico
+              </label>
               <input
                 type="email"
-                className="form-input"
-                placeholder="Correo Electrónico"
-                required
+                id="email"
+                className="form-entrada"
+                placeholder="contacto@empresa.com"
               />
             </div>
-            <div className="form-group">
-              <input
-                type="tel"
-                className="form-input"
-                placeholder="Teléfono de Contacto"
-              />
-            </div>
-            <div className="form-group">
+
+            <div className="form-grupo">
+              <label htmlFor="proyecto" className="form-etiqueta">
+                Detalles del Proyecto (Muros, Metraje, Ubicación)
+              </label>
               <textarea
-                className="form-input"
-                placeholder="Cuéntanos sobre tu proyecto (Metros cuadrados, tipo de muro, etc.)"
-                required
+                id="proyecto"
+                className="form-area-texto"
+                rows="5"
+                placeholder="Requiero material para 120 metros cuadrados de muro divisorio en corporativo..."
               ></textarea>
             </div>
-            <button type="submit" className="submit-btn">
-              ENVIAR SOLICITUD
+
+            <button
+              type="submit"
+              className="boton-accion-aislado"
+              style={{ width: '100%', marginTop: '20px' }}
+            >
+              ENVIAR REQUERIMIENTO
             </button>
           </form>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
