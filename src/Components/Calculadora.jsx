@@ -6,9 +6,6 @@ const Calculadora = () => {
   const [ancho, setAncho] = useState(4.5);
   const [alto, setAlto] = useState(3.0);
   const [total, setTotal] = useState(0);
-
-  // El diccionario cínico: asocia el estado con su archivo de imagen correspondiente.
-  // IMPORTANTE: Debes subir "barra.png" y "columna.png" a tu carpeta public.
   const imagenesEstructura = {
     muro: '/muro.png',
     barra: '/barra.png',
@@ -24,7 +21,7 @@ const Calculadora = () => {
 
   return (
     <section className="calc-section-wrapper">
-      <h2 className="calc-header-title">¿QUÉ CONSTRUIMOS?</h2>
+      <h2 className="calc-header-title">Calcula el material de tu proyecto</h2>
       <p className="calc-header-subtitle">
         Selecciona el tipo de muro y desliza las barras para calcular tu
         material.
