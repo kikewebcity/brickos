@@ -22,17 +22,165 @@ function App() {
   const [buscadorAbierto, setBuscadorAbierto] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [vistaActual, setVistaActual] = useState('inicio');
+  const [scrolled, setScrolled] = useState(false);
 
-  const heroImages = ['/oficinap.jpg', '/loftp.jpg', '/rinconp.jpg'];
+  const heroImages = ['/oficina.png', '/banop.jpg', '/murorecamara.png'];
+
+  const secciones = [
+    { id: 'nosotros', label: 'Quienes Somos' },
+    { id: 'productos', label: 'Productos' },
+    { id: 'ventaja', label: 'Ventaja' },
+    { id: 'aplicaciones', label: 'Aplicaciones' },
+    { id: 'contacto', label: 'Contacto' },
+  ];
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) =>
-        prev === heroImages.length - 1 ? 0 : prev + 1
-      );
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(slideInterval);
   }, [heroImages.length]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    window.addEventListener('scroll', handleScroll);
+    document
+      .querySelectorAll('.reveal-header, .reveal-content')
+      .forEach((el) => observer.observe(el));
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  const renderContenido = () => {
+    switch (vistaActual) {
+      case 'nosotros':
+        return <Nosotros />;
+      case 'productos':
+        return <Productos />;
+      case 'aplicaciones':
+        return <Inspiracion />;
+      case 'contacto':
+        return <Contacto />;
+      case 'ventaja':
+        return <Ventaja />;
+      default:
+        return renderInicio();
+    }
+  };
+
+  const renderInicio = () => (
+    <>
+      <section className="hero-slider">
+        {heroImages.map((img, index) => (
+          <div
+            key={index}
+            className={`slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${img})` }}
+          />
+        ))}
+        <div className="hero-slider-content">
+          <h1 className="titulo-monumental-limpio">
+            Bloques ecológicos
+            <br />
+            para tus proyectos
+          </h1>
+          <button
+            className="boton-accion-aislado"
+            onClick={() =>
+              document
+                .querySelector('.contenedor-seccion-aire')
+                .scrollIntoView({ behavior: 'smooth' })
+            }
+          >
+            Calcula tu material
+          </button>
+        </div>
+      </section>
+
+      <section className="intro-section">
+        <div className="intro-container">
+          <h2 className="intro-title">
+            Redefine los espacios interiores convirtiendo el{' '}
+            <span className="text-highlight">papel reciclado</span> en{' '}
+            <span className="text-highlight">arquitectura</span>.
+          </h2>
+        </div>
+      </section>
+
+      <FeaturesSection />
+
+      <section className="contenedor-seccion-aire">
+        <div className="reveal-header">
+          <h2 className="titulo-seccion-limpio">
+            Calcula el <span className="enfasis-verde">material</span> de tu
+            proyecto
+          </h2>
+          <p className="subtitulo-seccion-limpio">
+            Selecciona el tipo de estructura y ajusta las dimensiones para una
+            precisión técnica inmediata.
+          </p>
+        </div>
+        <div className="reveal-content">
+          <Calculadora />
+        </div>
+      </section>
+
+      <FaqsProductos />
+
+      <section className="seccion-inspiracion-unificada">
+        <div className="reveal-header">
+          <h2 className="titulo-seccion-unificada">
+            GALERÍA DE <span className="enfasis-verde">INSPIRACIONES</span> CON
+            BRICKO
+          </h2>
+        </div>
+        <div className="carrusel-inspiracion-home reveal-content">
+          <div className="inspiracion-slide-imagen">
+            <img
+              src="/oficina.png"
+              alt="Espacio Bricko"
+              className="inspiracion-img-img"
+            />
+          </div>
+          <div className="inspiracion-slide-texto">
+            <h3 className="slide-titulo">MODULARIDAD Y CONFORT ACÚSTICO</h3>
+            <p className="slide-parrafo">
+              Nuestros bloques de celulosa prensada segmentan oficinas abiertas
+              de forma rápida y limpia. La alta densidad garantiza un ambiente
+              aislado del ruido.
+            </p>
+            <a
+              href="#"
+              className="slide-enlace-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                setVistaActual('aplicaciones');
+              }}
+            >
+              Ver Aplicaciones Corporativas {'>'}
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 
   return (
     <div className="main-container">
@@ -41,7 +189,7 @@ function App() {
         <span>Envíos a todo el país</span>
       </div>
 
-      <nav className="barra-navegacion">
+      <nav className={`barra-navegacion ${scrolled ? 'navbar-scrolled' : ''}`}>
         <div
           className="contenedor-logo"
           onClick={() => setVistaActual('inicio')}
@@ -50,65 +198,26 @@ function App() {
           <img src={logoWhite} alt="Bricko" className="logo-img" />
         </div>
 
-        <ul
-          className={
-            menuOpen ? 'enlaces-navegacion activos' : 'enlaces-navegacion'
-          }
-        >
-          <li
-            className={vistaActual === 'nosotros' ? 'active-link' : ''}
-            onClick={() => {
-              setVistaActual('nosotros');
-              setMenuOpen(false);
-            }}
-          >
-            Quienes Somos
-          </li>
-          <li
-            className={vistaActual === 'productos' ? 'active-link' : ''}
-            onClick={() => {
-              setVistaActual('productos');
-              setMenuOpen(false);
-            }}
-          >
-            Productos
-          </li>
-          <li
-            className={vistaActual === 'ventaja' ? 'active-link' : ''}
-            onClick={() => {
-              setVistaActual('ventaja');
-              setMenuOpen(false);
-            }}
-          >
-            Ventaja
-          </li>
-          <li
-            className={vistaActual === 'aplicaciones' ? 'active-link' : ''}
-            onClick={() => {
-              setVistaActual('aplicaciones');
-              setMenuOpen(false);
-            }}
-          >
-            Aplicaciones
-          </li>
-          <li
-            className={vistaActual === 'contacto' ? 'active-link' : ''}
-            onClick={() => {
-              setVistaActual('contacto');
-              setMenuOpen(false);
-            }}
-          >
-            Contacto
-          </li>
+        <ul className={`enlaces-navegacion ${menuOpen ? 'activos' : ''}`}>
+          {secciones.map((sec) => (
+            <li
+              key={sec.id}
+              className={vistaActual === sec.id ? 'active-link' : ''}
+              onClick={() => {
+                setVistaActual(sec.id);
+                setMenuOpen(false);
+              }}
+            >
+              {sec.label}
+            </li>
+          ))}
         </ul>
 
         <div className="iconos-navegacion">
           <div className="contenedor-buscador">
             <input
               type="text"
-              className={
-                buscadorAbierto ? 'entrada-buscador activa' : 'entrada-buscador'
-              }
+              className={`entrada-buscador ${buscadorAbierto ? 'activa' : ''}`}
               placeholder="Buscar material..."
             />
             <Search
@@ -148,109 +257,7 @@ function App() {
         </div>
       </nav>
 
-      <main className="contenido-principal">
-        {(() => {
-          if (vistaActual === 'nosotros') return <Nosotros />;
-          if (vistaActual === 'productos') return <Productos />;
-          if (vistaActual === 'aplicaciones') return <Inspiracion />;
-          if (vistaActual === 'contacto') return <Contacto />;
-          if (vistaActual === 'ventaja') return <Ventaja />;
-
-          return (
-            <>
-              {/* 1. HERO BANNER */}
-              <section className="hero-slider">
-                {heroImages.map((img, index) => (
-                  <div
-                    key={index}
-                    className={`slide ${
-                      index === currentSlide ? 'active' : ''
-                    }`}
-                    style={{ backgroundImage: `url(${img})` }}
-                  />
-                ))}
-                <div className="hero-slider-content">
-                  <h1 className="titulo-monumental-limpio">
-                    Bloques ecológicos
-                    <br />
-                    para tus proyectos
-                  </h1>
-                  <button
-                    className="boton-accion-aislado"
-                    onClick={() =>
-                      document
-                        .querySelector('.seccion-unificada-calculo')
-                        .scrollIntoView({ behavior: 'smooth' })
-                    }
-                  >
-                    Calcula tu material
-                  </button>
-                </div>
-              </section>
-
-              {/* 2. INTRO */}
-              <section className="intro-section">
-                <div className="intro-container">
-                  <h2 className="intro-title">
-                    <strong>
-                      Redefine los espacios interiores convirtiendo el papel
-                      reciclado en arquitectura.
-                    </strong>
-                  </h2>
-                </div>
-              </section>
-
-              {/* 3. FEATURES */}
-              <FeaturesSection />
-
-              {/* 4. SECCIÓN UNIFICADA CALCULADORA */}
-              <div className="seccion-unificada-calculo">
-                <Calculadora />
-              </div>
-
-              {/* 5. VALIDACIÓN TÉCNICA (FAQ) */}
-              <FaqsProductos />
-
-              {/* 6. GALERÍA DE INSPIRACIÓN */}
-              <section className="seccion-inspiracion-unificada">
-                <h2 className="titulo-seccion-unificada">
-                  GALERÍA DE INSPIRACIONES CON BRICKO
-                </h2>
-                <div className="carrusel-inspiracion-home">
-                  <div className="inspiracion-slide-imagen">
-                    <img
-                      src="/oficina.png"
-                      alt="Espacio Bricko"
-                      className="inspiracion-img-img"
-                    />
-                  </div>
-                  <div className="inspiracion-slide-texto">
-                    <h3 className="slide-titulo">
-                      MODULARIDAD Y CONFORT ACÚSTICO
-                    </h3>
-                    <p className="slide-parrafo">
-                      Nuestros bloques de celulosa prensada segmentan oficinas
-                      abiertas de forma rápida, limpia y sin fatiga estructural.
-                      La alta densidad de la matriz polimérica garantiza un
-                      ambiente de trabajo aislado del ruido.
-                    </p>
-                    <a
-                      href="#"
-                      className="slide-enlace-cta"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setVistaActual('aplicaciones');
-                      }}
-                    >
-                      Ver Aplicaciones Corporativas {'>'}
-                    </a>
-                  </div>
-                </div>
-              </section>
-            </>
-          );
-        })()}
-      </main>
+      <main className="contenido-principal">{renderContenido()}</main>
 
       <footer className="footer">
         <div className="footer-overlay"></div>
