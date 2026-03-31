@@ -1,83 +1,130 @@
 import React from 'react';
 import '../App.css';
-import NoticiasSustentables from './NoticiasSustentables';
+import FaqsProductos from './FaqsProductos'; // Invocamos el módulo dinámico
 
-const Ventaja = () => {
+const Productos = () => {
   return (
-    <div className="ventaja-pagina-maestra">
-      <section className="ventaja-hero-tecnico">
-        <h1 className="titulo-seccion-productos">INNOVACIÓN Y VENTAJA COMPETITIVA</h1>
+    <div className="productos-pagina-maestra">
+      {/* SECCIÓN 1: CABECERA TÉCNICA */}
+      <section className="productos-hero-tecnico">
+        <h1 className="titulo-seccion-productos">
+          CATÁLOGO ESTRUCTURAL BRICKO
+        </h1>
         <p className="descripcion-cabecera-tecnica">
-          Redefinimos la eficiencia constructiva mediante la transformación de celulosa en un sistema de alto rendimiento estructural, acústico y ecológico.
+          Sistemas de construcción en seco basados en una matriz biopolimérica
+          de celulosa y amilopectina. Ingeniería ligera diseñada para la
+          optimización de cargas en interiores.
         </p>
       </section>
 
-      <section className="ventaja-grid-contenedor">
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">01</span>
-            <h3 className="ventaja-titulo-tarjeta">ECONOMÍA CIRCULAR Y SUSTENTABILIDAD</h3>
+      {/* SECCIÓN 2: GRID DE PRODUCTOS PRINCIPALES */}
+      <section className="productos-grid-principal">
+        <div className="producto-item-card">
+          <img
+            src="/ladrillodivisorio.png"
+            alt="Ladrillo Divisorio"
+            className="img-producto-tecnica"
+          />
+          <h2 className="nombre-producto-ficha">LADRILLO DIVISORIO E-100</h2>
+          <div className="mini-tabla-datos">
+            <p>Dimensiones: 23 x 14 x 7 cm</p>
+            <p>Peso: 0.5 kg (72% más ligero)</p>
+            <p>Resistencia: 60 kg/cm²</p>
           </div>
-          <p className="ventaja-texto-tarjeta">
-            Producto estrictamente amigable con el medio ambiente. La materia prima se obtiene a través de la recuperación de desechos, mitigando la contaminación activa y transformando la celulosa en un elemento arquitectónico funcional.
-          </p>
         </div>
 
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">02</span>
-            <h3 className="ventaja-titulo-tarjeta">RESISTENCIA MECÁNICA EXTREMA</h3>
+        <div className="producto-item-card">
+          <img
+            src="/blockhexagonales.png"
+            alt="Block Ligero"
+            className="img-producto-tecnica"
+          />
+          <h2 className="nombre-producto-ficha">BLOCK LIGERO B-200</h2>
+          <div className="mini-tabla-datos">
+            <p>Dimensiones: 40 x 15 x 20 cm</p>
+            <p>Peso: 4.0 kg (51% más ligero)</p>
+            <p>Aislamiento: 13.5 Kcal/hr °C</p>
           </div>
-          <p className="ventaja-texto-tarjeta">
-            Cada unidad resiste hasta 1.5 toneladas de presión antes del aplastamiento. Es un material diseñado con una altísima resistencia a la deformación, garantizando la estabilidad y seguridad en muros divisorios.
-          </p>
         </div>
 
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">03</span>
-            <h3 className="ventaja-titulo-tarjeta">BARRERA ACÚSTICA INTEGRADA</h3>
+        <div className="producto-item-card">
+          <img
+            src="/paneldivisorio.png"
+            alt="Panel Monolítico"
+            className="img-producto-tecnica"
+          />
+          <h2 className="nombre-producto-ficha">PANEL MONOLÍTICO P-300</h2>
+          <div className="mini-tabla-datos">
+            <p>Dimensiones: 1.22 x 2.44 m</p>
+            <p>Peso: 92.5 kg</p>
+            <p>Uso: Sustituto de yeso encartonado</p>
           </div>
-          <p className="ventaja-texto-tarjeta">
-            El sistema atenúa hasta 37.6 decibeles. La densidad del material impide el paso de frecuencias sonoras, garantizando privacidad total y bloqueando la filtración de conversaciones entre espacios contiguos.
-          </p>
         </div>
+      </section>
 
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">04</span>
-            <h3 className="ventaja-titulo-tarjeta">SISTEMA ULTRA LIGERO</h3>
-          </div>
-          <p className="ventaja-texto-tarjeta">
-            Evita la fatiga estructural en tu edificacion. Nuestros bloques tienen un peso de apenas 2.15 kilogramos, una reduccion drastica frente a los 8 kilogramos de un bloque convencional ligero.
-          </p>
+      {/* SECCIÓN 3: TABLA COMPARATIVA DE RENDIMIENTO */}
+      <section className="seccion-tabla-comparativa">
+        <h2 className="titulo-tabla-rendimiento">
+          RENDIMIENTO FRENTE A SISTEMAS TRADICIONALES
+        </h2>
+        <div className="contenedor-tabla-scroll">
+          <table className="tabla-bricko-vs-tradicional">
+            <thead>
+              <tr>
+                <th>Especificación Técnica</th>
+                <th>Sistema Bricko</th>
+                <th>Ladrillo/Block Convencional</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Peso en Ladrillo (23x14x7)</td>
+                <td>0.5 kg</td>
+                <td>1.8 kg</td>
+              </tr>
+              <tr>
+                <td>Tiempo de Secado / Fraguado</td>
+                <td>150 - 200 horas</td>
+                <td>28 días (672 horas)</td>
+              </tr>
+              <tr>
+                <td>Resistencia a la Compresión</td>
+                <td>60 kg/cm²</td>
+                <td>Variable (Estructural)</td>
+              </tr>
+              <tr>
+                <td>Comportamiento al Fuego</td>
+                <td>Carbonización sin llama</td>
+                <td>No combustible (Arcilla)</td>
+              </tr>
+              <tr>
+                <td>Instalación en Obra</td>
+                <td>Corte con segueta / Atornillable</td>
+                <td>Cortes mecánicos / Cemento</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
 
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">05</span>
-            <h3 className="ventaja-titulo-tarjeta">ENSAMBLE DIRECTO SIN DESPERDICIOS</h3>
-          </div>
-          <p className="ventaja-texto-tarjeta">
-            Eliminamos la necesidad de canaletas, rieles, pijas, pastas y herramientas complejas. Adquieres unicamente el metraje exacto que tu proyecto demanda, erradicando la generacion de escombros, polvo y mermas de material.
-          </p>
-        </div>
-
-        <div className="ventaja-tarjeta-bloque">
-          <div className="ventaja-icono-cabecera">
-            <span className="ventaja-numero">06</span>
-            <h3 className="ventaja-titulo-tarjeta">EFICIENCIA FINANCIERA Y ACABADO RÚSTICO</h3>
-          </div>
-          <p className="ventaja-texto-tarjeta">
-            El costo final de construccion es inferior al de sistemas de yeso encartonado. Ademas, cualquier operador puede levantarlo sin especializacion, logrando un acabado rustico inmediato que solo requiere pintura de base agua, eliminando tiempos de aplanado.
+      {/* SECCIÓN 4: EXTENSIÓN DEL CATÁLOGO (DISEÑO Y ESCENOGRAFÍA) */}
+      <section className="seccion-extension-diseno">
+        <div className="extension-contenido">
+          <h2 className="titulo-extension">LÍNEA DE DISEÑO Y ESCENOGRAFÍA</h2>
+          <p className="parrafo-extension">
+            La Tabla Base de 80 x 10 x 122 cm ofrece una densidad de 256 kg/m³
+            ideal para la manufactura de mobiliario sustentable como libreros y
+            mesas. En el ámbito escénico, la ligereza del material y su cualidad
+            ignífuga permiten crear sets de grabación y teatros seguros,
+            modulares y de montaje ultra rápido sin generar escombros en el set.
           </p>
         </div>
       </section>
 
-      <NoticiasSustentables />
-      
+      {/* SECCIÓN 5: SOPORTE TÉCNICO / FAQS UNIFICADO */}
+      <FaqsProductos />
     </div>
   );
 };
 
-export default Ventaja;
+export default Productos;
